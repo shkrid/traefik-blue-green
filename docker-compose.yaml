@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  consul:
+    image: progrium/consul
+    command: -server -bootstrap -log-level debug -ui-dir /ui
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:53/udp"
+
+  traefik:
+    image: traefik:1.7-alpine
+    command: --consul --consul.endpoint=consul:8500
+    ports:
+      - "80:80"
+      - "8080:8080"
+
+
+
+  api1blue:
+    image: containous/whoami
+
+  api2blue:
+    image: containous/whoami
+
+
+  api1green:
+    image: containous/whoami
+
+  api2green:
+    image: containous/whoami
+
+
+
+  auth1blue:
+    image: containous/whoami
+
+  auth2blue:
+    image: containous/whoami
+
+
+  auth1green:
+    image: containous/whoami
+
+  auth2green:
+    image: containous/whoami
